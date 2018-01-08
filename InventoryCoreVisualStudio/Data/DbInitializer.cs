@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using InventoryCoreVisualStudio.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace InventoryCoreVisualStudio.Data
 {
@@ -10,7 +11,7 @@ namespace InventoryCoreVisualStudio.Data
     {
         public static void Initialize(InventoryContext context)
         {
-            context.Database.EnsureCreated();
+            if(context.Database.EnsureCreated()) context.Database.Migrate();
             //Look for existance of any items in DB.
             if (context.Items.Any())
             {
@@ -19,13 +20,14 @@ namespace InventoryCoreVisualStudio.Data
 
             var calibers = new Caliber[]
             {
-                new Caliber{ Name = "223", DecimalSize = .224M, MetricSize = "5.56 X 45" },
+                new Caliber{ Name ="223", DecimalSize = .224M, MetricSize = "5.56 X 45" },
                 new Caliber{ Name="308", DecimalSize=.308M, MetricSize="7.62 X 51" },
                 new Caliber{ Name="9mm Luger", DecimalSize=.355M, MetricSize="9 X 19" }
             };
-            foreach (Caliber c in calibers) {
-                context.Caliber.Add(c);
-            }
+			context.Caliber.AddRange(calibers);
+            //foreach (Caliber c in calibers) {
+            //    context.Caliber.Add(c);
+            //}
             context.SaveChanges();
 
             var locations = new Location[]

@@ -31,7 +31,7 @@ namespace InventoryCoreVisualStudio.Models
         public int LocationId { get; set; }
         public string SerialNumber { get; set; }
         public decimal Weight { get; set; }
-        public string WeightUnioofMeasure { get; set; }
+        public string WeightUnitOfMeasure { get; set; }
         public DateTime SoldDate { get; set; }
         public string SoldTo { get; set; }
         public decimal SoldPrice { get; set; }

@@ -12,9 +12,9 @@ namespace InventoryCoreVisualStudio.Controllers
 {
     public class CaliberController : Controller
     {
-        private readonly InventoryContext _context;
+        private readonly CaliberContext _context;
 
-        public CaliberController(InventoryContext context)
+        public CaliberController(CaliberContext context)
         {
             _context = context;
         }
@@ -42,6 +42,21 @@ namespace InventoryCoreVisualStudio.Controllers
 
             return View(caliber);
         }
+
+	    public async Task<IActionResult> DetailsByName(string name)
+	    {
+		    if (name == null)
+		    {
+			    return NotFound();
+		    }
+		    var caliber = await _context.Caliber
+			    .SingleOrDefaultAsync(c => c.Name == name);
+		    if (caliber == null)
+		    {
+			    return NotFound();
+		    }
+		    return View("Details",caliber);
+	    }
 
         // GET: Caliber/Create
         public IActionResult Create()

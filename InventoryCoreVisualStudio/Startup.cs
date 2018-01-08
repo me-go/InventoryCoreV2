@@ -22,8 +22,8 @@ namespace InventoryCoreVisualStudio
             services.AddDbContext<InventoryContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Inventory")));
 
-            //services.AddDbContext<CaliberContext>(options =>
-              //      options.UseSqlServer(Configuration.GetConnectionString("Inventory")));
+            services.AddDbContext<CaliberContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Inventory")));
 
             services.AddMvc();
         }

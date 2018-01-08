@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using InventoryCoreVisualStudio.Models;
+﻿using InventoryCoreVisualStudio.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace InventoryCoreVisualStudio.Models
+namespace InventoryCoreVisualStudio.Data
 {
     public class CaliberContext : DbContext
     {

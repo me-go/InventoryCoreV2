@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using InventoryCoreVisualStudio.Data;
+using InventoryCoreVisualStudio.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace InventoryCoreVisualStudio
 {
@@ -35,5 +37,15 @@ namespace InventoryCoreVisualStudio
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .Build();
+
+	    private static void InsertCaliber()
+	    {
+		    var calibers = new Caliber{Name = "44 Magnum", DecimalSize = .424M};
+		    using (var context = new InventoryContext(new DbContextOptions<InventoryContext>()))
+		    {
+			    context.Caliber.Add(calibers);
+				context.SaveChanges();
+		    }
+	    }
     }
 }
