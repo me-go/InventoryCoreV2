@@ -25,5 +25,10 @@ namespace InventoryCoreVisualStudio.Data
             modelBuilder.Entity<Part>().ToTable("Part");
             modelBuilder.Entity<Item>().ToTable("Item");
         }
+
+//	    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//	    {
+//		    optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=InventoryCore;Integrated Security=True;MultipleActiveResultSets=True");
+//	    }
     }
 }
