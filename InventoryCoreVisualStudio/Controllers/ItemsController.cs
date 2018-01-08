@@ -27,7 +27,8 @@ namespace InventoryCoreVisualStudio.Controllers
 				.Include(i => i.Category)
 				.Include(i => i.Location)
 				.Include(i => i.Manufacturer)
-				.Include(i => i.Platform).Include(i => i.Retailer);
+				.Include(i => i.Platform)
+				.Include(i => i.Retailer);
             return View(await inventoryContext.ToListAsync());
         }
 

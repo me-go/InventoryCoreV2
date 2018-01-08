@@ -6,3 +6,5 @@ get-help entityframeworkcore
 get-help add-migrations
 
 script-migration -context InventoryContext
+
+update-database -context InventoryContext -verbose
