@@ -1,10 +1,12 @@
-﻿using System;
+﻿using InventoryCoreVisualStudio.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace InventoryCoreVisualStudio.Models
+namespace InventoryCoreVisualStudio.ViewModels
 {
-    public class Item
+    public class ItemVm
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -17,7 +19,7 @@ namespace InventoryCoreVisualStudio.Models
         public virtual Category Category { get; set; }
         public int CategoryId { get; set; }
         public virtual FiringAction FiringAction { get; set; }
-        public int FiringActionId { get; set; }
+        public int ActionId { get; set; }
         public virtual Platform Platform { get; set; }
         public int PlatformId { get; set; }
         public string Color { get; set; }
@@ -36,5 +38,6 @@ namespace InventoryCoreVisualStudio.Models
         public string SoldTo { get; set; }
         public decimal SoldPrice { get; set; }
         public List<Part> Parts { get; set; }
+
     }
 }

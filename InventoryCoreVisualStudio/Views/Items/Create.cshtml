@@ -19,7 +19,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="ManufacturerId" class="control-label"></label>
-                <select asp-for="ManufacturerId" class ="form-control" asp-items="ViewBag.ManufacturerId"></select>
+                <select asp-for="ManufacturerId" class ="form-control" asp-items="ViewBag.ManufacturerId">
+                    <option>Please select one</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Model" class="control-label"></label>
@@ -33,20 +35,26 @@
             </div>
             <div class="form-group">
                 <label asp-for="CaliberId" class="control-label"></label>
-                <select asp-for="CaliberId" class ="form-control" asp-items="ViewBag.CaliberId"></select>
+                <select asp-for="CaliberId" class ="form-control" asp-items="ViewBag.CaliberId">
+                    <option>Please select one</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId">
+                    <option>Please select one</option>
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="ActionId" class="control-label"></label>
-                <input asp-for="ActionId" class="form-control" />
-                <span asp-validation-for="ActionId" class="text-danger"></span>
+                <label asp-for="FiringActionId" class="control-label"></label>
+                <input asp-for="FiringActionId" class="form-control" />
+                <span asp-validation-for="FiringActionId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PlatformId" class="control-label"></label>
-                <select asp-for="PlatformId" class ="form-control" asp-items="ViewBag.PlatformId"></select>
+                <select asp-for="PlatformId" class ="form-control" asp-items="ViewBag.PlatformId">
+                    <option>Please select one</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Color" class="control-label"></label>
@@ -70,7 +78,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="RetailerId" class="control-label"></label>
-                <select asp-for="RetailerId" class ="form-control" asp-items="ViewBag.RetailerId"></select>
+                <select asp-for="RetailerId" class ="form-control" asp-items="ViewBag.RetailerId">
+                    <option>Please select one</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="ListPrice" class="control-label"></label>
@@ -79,7 +89,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="LocationId" class="control-label"></label>
-                <select asp-for="LocationId" class ="form-control" asp-items="ViewBag.LocationId"></select>
+                <select asp-for="LocationId" class ="form-control" asp-items="ViewBag.LocationId">
+                    <option>Please select one</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="SerialNumber" class="control-label"></label>

@@ -22,7 +22,7 @@
                     @Html.DisplayNameFor(model => model.PartNumber)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ActionId)
+                    @Html.DisplayNameFor(model => model.FiringAction)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Color)
@@ -91,7 +91,7 @@
                 @Html.DisplayFor(modelItem => item.PartNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ActionId)
+                @Html.DisplayFor(modelItem => item.FiringAction.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Color)
@@ -127,22 +127,22 @@
                 @Html.DisplayFor(modelItem => item.SoldPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Caliber.Id)
+                @Html.DisplayFor(modelItem => item.Caliber.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Category.Id)
+                @Html.DisplayFor(modelItem => item.Category.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Location.Id)
+                @Html.DisplayFor(modelItem => item.Location.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Manufacturer.Id)
+                @Html.DisplayFor(modelItem => item.Manufacturer.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Platform.Id)
+                @Html.DisplayFor(modelItem => item.Platform.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Retailer.Id)
+                @Html.DisplayFor(modelItem => item.Retailer.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

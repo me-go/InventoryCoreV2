@@ -28,7 +28,8 @@ namespace InventoryCoreVisualStudio.Controllers
 				.Include(i => i.Location)
 				.Include(i => i.Manufacturer)
 				.Include(i => i.Platform)
-				.Include(i => i.Retailer);
+				.Include(i => i.Retailer)
+                .Include(i => i.FiringAction);
             return View(await inventoryContext.ToListAsync());
         }
 
@@ -69,12 +70,13 @@ namespace InventoryCoreVisualStudio.Controllers
         // GET: Items/Create
         public IActionResult Create()
         {
-            ViewData["CaliberId"] = new SelectList(_context.Caliber, "Id", "Id");
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id");
-            ViewData["LocationId"] = new SelectList(_context.Location, "Id", "Id");
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturer, "Id", "Id");
-            ViewData["PlatformId"] = new SelectList(_context.Platform, "Id", "Id");
-            ViewData["RetailerId"] = new SelectList(_context.Retailer, "Id", "Id");
+            var localCaliber = _context.Caliber;
+            ViewData["CaliberId"] = new SelectList(_context.Caliber, "Id", "Name");
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
+            ViewData["LocationId"] = new SelectList(_context.Location, "Id", "Name");
+            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturer, "Id", "Name");
+            ViewData["PlatformId"] = new SelectList(_context.Platform, "Id", "Name");
+            ViewData["RetailerId"] = new SelectList(_context.Retailer, "Id", "Name");
             return View();
         }
 
@@ -83,7 +85,7 @@ namespace InventoryCoreVisualStudio.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,ManufacturerId,Model,PartNumber,CaliberId,CategoryId,ActionId,PlatformId,Color,PurchaseDate,PurchasePrice,PurchaseFrom,RetailerId,ListPrice,LocationId,SerialNumber,Weight,WeightUnitOfMeasure,SoldDate,SoldTo,SoldPrice")] Item item)
+        public async Task<IActionResult> Create([Bind("Id,Name,ManufacturerId,Model,PartNumber,CaliberId,CategoryId,FiringActionId,PlatformId,Color,PurchaseDate,PurchasePrice,PurchaseFrom,RetailerId,ListPrice,LocationId,SerialNumber,Weight,WeightUnitOfMeasure,SoldDate,SoldTo,SoldPrice")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -91,12 +93,13 @@ namespace InventoryCoreVisualStudio.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CaliberId"] = new SelectList(_context.Caliber, "Id", "Id", item.CaliberId);
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id", item.CategoryId);
-            ViewData["LocationId"] = new SelectList(_context.Location, "Id", "Id", item.LocationId);
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturer, "Id", "Id", item.ManufacturerId);
-            ViewData["PlatformId"] = new SelectList(_context.Platform, "Id", "Id", item.PlatformId);
-            ViewData["RetailerId"] = new SelectList(_context.Retailer, "Id", "Id", item.RetailerId);
+            ViewData["CaliberId"] = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", item.CategoryId);
+            ViewData["LocationId"] = new SelectList(_context.Location, "Id", "Name", item.LocationId);
+            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturer, "Id", "Name", item.ManufacturerId);
+            ViewData["PlatformId"] = new SelectList(_context.Platform, "Id", "Name", item.PlatformId);
+            ViewData["RetailerId"] = new SelectList(_context.Retailer, "Id", "Name", item.RetailerId);
+            ViewData["FiringActionId"] = new SelectList(_context.FiringAction, "Id", "Name", item.FiringActionId);
             return View(item);
         }
 
@@ -119,6 +122,7 @@ namespace InventoryCoreVisualStudio.Controllers
             ViewData["ManufacturerId"] = new SelectList(_context.Manufacturer, "Id", "Id", item.ManufacturerId);
             ViewData["PlatformId"] = new SelectList(_context.Platform, "Id", "Id", item.PlatformId);
             ViewData["RetailerId"] = new SelectList(_context.Retailer, "Id", "Id", item.RetailerId);
+            ViewData["FiringActionId"] = new SelectList(_context.FiringAction, "Id", "Name", item.FiringActionId);
             return View(item);
         }
 
@@ -127,7 +131,7 @@ namespace InventoryCoreVisualStudio.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ManufacturerId,Model,PartNumber,CaliberId,CategoryId,ActionId,PlatformId,Color,PurchaseDate,PurchasePrice,PurchaseFrom,RetailerId,ListPrice,LocationId,SerialNumber,Weight,WeightUnitOfMeasure,SoldDate,SoldTo,SoldPrice")] Item item)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ManufacturerId,Model,PartNumber,CaliberId,CategoryId,FiringActionId,PlatformId,Color,PurchaseDate,PurchasePrice,PurchaseFrom,RetailerId,ListPrice,LocationId,SerialNumber,Weight,WeightUnitOfMeasure,SoldDate,SoldTo,SoldPrice")] Item item)
         {
             if (id != item.Id)
             {
@@ -160,6 +164,7 @@ namespace InventoryCoreVisualStudio.Controllers
             ViewData["ManufacturerId"] = new SelectList(_context.Manufacturer, "Id", "Id", item.ManufacturerId);
             ViewData["PlatformId"] = new SelectList(_context.Platform, "Id", "Id", item.PlatformId);
             ViewData["RetailerId"] = new SelectList(_context.Retailer, "Id", "Id", item.RetailerId);
+            ViewData["FiringActionId"] = new SelectList(_context.FiringAction, "Id", "Name", item.FiringActionId);
             return View(item);
         }
 
@@ -178,6 +183,7 @@ namespace InventoryCoreVisualStudio.Controllers
                 .Include(i => i.Manufacturer)
                 .Include(i => i.Platform)
                 .Include(i => i.Retailer)
+                .Include(i => i.FiringAction)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (item == null)
             {
