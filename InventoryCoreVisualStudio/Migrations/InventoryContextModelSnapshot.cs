@@ -65,15 +65,13 @@ namespace InventoryCoreVisualStudio.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ActionId");
-
                     b.Property<int>("CaliberId");
 
                     b.Property<int>("CategoryId");
 
                     b.Property<string>("Color");
 
-                    b.Property<int?>("FiringActionId");
+                    b.Property<int>("FiringActionId");
 
                     b.Property<decimal>("ListPrice");
 
@@ -250,7 +248,8 @@ namespace InventoryCoreVisualStudio.Migrations
 
                     b.HasOne("InventoryCoreVisualStudio.Models.FiringAction", "FiringAction")
                         .WithMany()
-                        .HasForeignKey("FiringActionId");
+                        .HasForeignKey("FiringActionId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("InventoryCoreVisualStudio.Models.Location", "Location")
                         .WithMany()
