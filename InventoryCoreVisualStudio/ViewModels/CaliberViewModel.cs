@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace InventoryCoreVisualStudio.Models
+namespace InventoryCoreVisualStudio.ViewModels
 {
-    public class Caliber
+    public class CaliberViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

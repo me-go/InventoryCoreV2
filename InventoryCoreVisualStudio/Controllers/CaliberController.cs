@@ -7,40 +7,58 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using InventoryCoreVisualStudio.Models;
 using InventoryCoreVisualStudio.Data;
+using InventoryCoreVisualStudio.Services;
+using InventoryCoreVisualStudio.ViewModels;
 
 namespace InventoryCoreVisualStudio.Controllers
 {
+    //[Route("administration/[controller]")]
     public class CaliberController : Controller
     {
-        private readonly CaliberContext _context;
+        private readonly InventoryContext _context;
+        private readonly ICaliberData _caliberData;
 
-        public CaliberController(CaliberContext context)
+        public CaliberController(InventoryContext context, ICaliberData caliberData)
         {
             _context = context;
+            _caliberData = caliberData;
         }
 
+        //[Route("List")]
         // GET: Caliber
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Caliber.ToListAsync());
+            //var calList = _context.Caliber;
+            //return View(await calList.ToListAsync());
+            var model = _caliberData.GetAll();
+            return View(model.ToList());
+            
         }
 
         // GET: Caliber/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
 
-            var caliber = await _context.Caliber
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (caliber == null)
-            {
-                return NotFound();
-            }
+            //var caliber = await _context.Caliber
+            //    .SingleOrDefaultAsync(m => m.Id == id);
+            //if (caliber == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return View(caliber);
+            //return View(caliber);
+
+            var model = _caliberData.Get(id);
+            if (model == null)
+            {
+                //return NotFound();
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
 	    public async Task<IActionResult> DetailsByName(string name)
@@ -80,6 +98,17 @@ namespace InventoryCoreVisualStudio.Controllers
             return View(caliber);
         }
 
+        [HttpPost]
+        public IActionResult Create2(CaliberViewModel model)
+        {
+            var caliber = new Caliber();
+            caliber.Name = model.Name;
+            caliber.DecimalSize = model.DecimalSize;
+            caliber.MetricSize = model.MetricSize;
+
+            _caliberData.Add(caliber);
+            return RedirectToAction("Details", new { Id= caliber.Id});
+        }
         // GET: Caliber/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -101,7 +130,7 @@ namespace InventoryCoreVisualStudio.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,DecimalSize,MetricSize")] Caliber caliber)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,DecimalSize,MetricSize")] CaliberViewModel caliber)
         {
             if (id != caliber.Id)
             {

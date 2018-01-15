@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using InventoryCoreVisualStudio.Data;
+using InventoryCoreVisualStudio.Services;
 
 namespace InventoryCoreVisualStudio
 {
@@ -22,10 +23,8 @@ namespace InventoryCoreVisualStudio
             services.AddDbContext<InventoryContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Inventory")));
 
-            services.AddDbContext<CaliberContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("Inventory")));
-
             services.AddMvc();
+            services.AddScoped<ICaliberData, InMemoryCaliberData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +40,9 @@ namespace InventoryCoreVisualStudio
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
+            //app.UseDefaultFiles();
+            //app.UseStaticFiles();
+            app.UseFileServer();
 
             app.UseMvc(routes =>
             {

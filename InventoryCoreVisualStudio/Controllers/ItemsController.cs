@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using InventoryCoreVisualStudio.Data;
 using InventoryCoreVisualStudio.Models;
+using InventoryCoreVisualStudio.ViewModels;
 
 namespace InventoryCoreVisualStudio.Controllers
 {
@@ -100,6 +101,16 @@ namespace InventoryCoreVisualStudio.Controllers
             ViewData["PlatformId"] = new SelectList(_context.Platform, "Id", "Name", item.PlatformId);
             ViewData["RetailerId"] = new SelectList(_context.Retailer, "Id", "Name", item.RetailerId);
             ViewData["FiringActionId"] = new SelectList(_context.FiringAction, "Id", "Name", item.FiringActionId);
+            return View(item);
+        }
+
+        public ViewResult Create2(ItemViewModel model)
+        {
+            var item = new Item();
+            item.Name = model.Name;
+            item.Caliber = model.Caliber;
+
+
             return View(item);
         }
 

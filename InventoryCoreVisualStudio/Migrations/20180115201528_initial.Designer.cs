@@ -11,8 +11,8 @@ using System;
 namespace InventoryCoreVisualStudio.Migrations
 {
     [DbContext(typeof(InventoryContext))]
-    [Migration("20180108181643_updateItemAndPartModel")]
-    partial class updateItemAndPartModel
+    [Migration("20180115201528_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,7 +26,8 @@ namespace InventoryCoreVisualStudio.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<decimal>("DecimalSize");
+                    b.Property<decimal>("DecimalSize")
+                        .HasColumnType("decimal(4,3)");
 
                     b.Property<string>("MetricSize");
 
@@ -66,15 +67,13 @@ namespace InventoryCoreVisualStudio.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ActionId");
-
                     b.Property<int>("CaliberId");
 
                     b.Property<int>("CategoryId");
 
                     b.Property<string>("Color");
 
-                    b.Property<int?>("FiringActionId");
+                    b.Property<int>("FiringActionId");
 
                     b.Property<decimal>("ListPrice");
 
@@ -251,7 +250,8 @@ namespace InventoryCoreVisualStudio.Migrations
 
                     b.HasOne("InventoryCoreVisualStudio.Models.FiringAction", "FiringAction")
                         .WithMany()
-                        .HasForeignKey("FiringActionId");
+                        .HasForeignKey("FiringActionId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("InventoryCoreVisualStudio.Models.Location", "Location")
                         .WithMany()

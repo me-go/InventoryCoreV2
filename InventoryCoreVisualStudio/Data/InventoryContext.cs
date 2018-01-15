@@ -24,6 +24,7 @@ namespace InventoryCoreVisualStudio.Data
         {
             modelBuilder.Entity<Part>().ToTable("Part");
             modelBuilder.Entity<Item>().ToTable("Item");
+            modelBuilder.Entity<Caliber>().Property(c => c.DecimalSize).HasColumnType("decimal(4,3)");
         }
 
 //	    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

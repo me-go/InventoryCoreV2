@@ -10,7 +10,13 @@ namespace InventoryCoreVisualStudio.Data
         {
         }
 
+        
+
         public DbSet<Caliber> Caliber { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+           
+        }
 
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace InventoryCoreVisualStudio.Migrations
 {
-    public partial class init : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,11 +13,11 @@ namespace InventoryCoreVisualStudio.Migrations
                 name: "Caliber",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DecimalSize = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
-                    MetricSize = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    DecimalSize = table.Column<decimal>(type: "decimal(4,3)", nullable: false),
+                    MetricSize = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -28,9 +28,9 @@ namespace InventoryCoreVisualStudio.Migrations
                 name: "Category",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -41,9 +41,9 @@ namespace InventoryCoreVisualStudio.Migrations
                 name: "FiringAction",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -54,9 +54,9 @@ namespace InventoryCoreVisualStudio.Migrations
                 name: "Location",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,13 +67,13 @@ namespace InventoryCoreVisualStudio.Migrations
                 name: "Manufacturer",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Website = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Address = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    Website = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -84,9 +84,9 @@ namespace InventoryCoreVisualStudio.Migrations
                 name: "Platform",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -97,13 +97,13 @@ namespace InventoryCoreVisualStudio.Migrations
                 name: "Retailer",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Website = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Address = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    Website = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -114,10 +114,10 @@ namespace InventoryCoreVisualStudio.Migrations
                 name: "SubCategory",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CategoryId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -134,30 +134,29 @@ namespace InventoryCoreVisualStudio.Migrations
                 name: "Item",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ActionId = table.Column<int>(type: "int", nullable: false),
-                    CaliberId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FiringActionId = table.Column<int>(type: "int", nullable: true),
-                    ListPrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
-                    LocationId = table.Column<int>(type: "int", nullable: false),
-                    ManufacturerId = table.Column<int>(type: "int", nullable: false),
-                    Model = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PartNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PlatformId = table.Column<int>(type: "int", nullable: false),
-                    PurchaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PurchaseFrom = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PurchasePrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
-                    RetailerId = table.Column<int>(type: "int", nullable: true),
-                    SerialNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SoldDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SoldPrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
-                    SoldTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Weight = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
-                    WeightUnioofMeasure = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CaliberId = table.Column<int>(nullable: false),
+                    CategoryId = table.Column<int>(nullable: false),
+                    Color = table.Column<string>(nullable: true),
+                    FiringActionId = table.Column<int>(nullable: false),
+                    ListPrice = table.Column<decimal>(nullable: false),
+                    LocationId = table.Column<int>(nullable: false),
+                    ManufacturerId = table.Column<int>(nullable: false),
+                    Model = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    PartNumber = table.Column<string>(nullable: true),
+                    PlatformId = table.Column<int>(nullable: false),
+                    PurchaseDate = table.Column<DateTime>(nullable: false),
+                    PurchaseFrom = table.Column<string>(nullable: true),
+                    PurchasePrice = table.Column<decimal>(nullable: false),
+                    RetailerId = table.Column<int>(nullable: true),
+                    SerialNumber = table.Column<string>(nullable: true),
+                    SoldDate = table.Column<DateTime>(nullable: false),
+                    SoldPrice = table.Column<decimal>(nullable: false),
+                    SoldTo = table.Column<string>(nullable: true),
+                    Weight = table.Column<decimal>(nullable: false),
+                    WeightUnitOfMeasure = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -179,7 +178,7 @@ namespace InventoryCoreVisualStudio.Migrations
                         column: x => x.FiringActionId,
                         principalTable: "FiringAction",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Item_Location_LocationId",
                         column: x => x.LocationId,
@@ -210,15 +209,15 @@ namespace InventoryCoreVisualStudio.Migrations
                 name: "Part",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Cost = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ItemId = table.Column<int>(type: "int", nullable: false),
-                    ManufacturerId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PartNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ShortName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Cost = table.Column<decimal>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    ItemId = table.Column<int>(nullable: false),
+                    ManufacturerId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    PartNumber = table.Column<string>(nullable: true),
+                    ShortName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
