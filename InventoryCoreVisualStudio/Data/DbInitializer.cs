@@ -56,22 +56,13 @@ namespace InventoryCoreVisualStudio.Data
 
             var categories = new Category[]
             {
-                new Category{ Name="Firearm" }
+                new Category{ Name="Firearm", ParentId = null },
+                new Category { Name="Pistol", ParentId = 1 },
+                new Category { Name="Rifle", ParentId = 1 }
             };
             foreach(Category c in categories)
             {
                 context.Category.Add(c);
-            }
-            context.SaveChanges();
-
-            var subCategories = new SubCategory[]
-            {
-                new SubCategory{ Name="Rifle" , CategoryId=1 },
-                new SubCategory{ Name="Pistol", CategoryId=1 }
-            };
-            foreach(SubCategory sc in subCategories)
-            {
-                context.SubCategory.Add(sc);
             }
             context.SaveChanges();
 

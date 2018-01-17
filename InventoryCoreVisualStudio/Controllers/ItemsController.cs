@@ -30,7 +30,8 @@ namespace InventoryCoreVisualStudio.Controllers
 				.Include(i => i.Manufacturer)
 				.Include(i => i.Platform)
 				.Include(i => i.Retailer)
-                .Include(i => i.FiringAction);
+                .Include(i => i.FiringAction)
+                .AsNoTracking();
             return View(await inventoryContext.ToListAsync());
         }
 
@@ -55,10 +56,12 @@ namespace InventoryCoreVisualStudio.Controllers
             var item = await _context.Items
                 .Include(i => i.Caliber)
                 .Include(i => i.Category)
+                    //.ThenInclude(sc => sc.Subcategory)
                 .Include(i => i.Location)
                 .Include(i => i.Manufacturer)
                 .Include(i => i.Platform)
                 .Include(i => i.Retailer)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (item == null)
             {

@@ -44,7 +44,11 @@ namespace InventoryCoreVisualStudio.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int?>("ParentId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Category");
                 });
@@ -219,20 +223,11 @@ namespace InventoryCoreVisualStudio.Migrations
                     b.ToTable("Retailer");
                 });
 
-            modelBuilder.Entity("InventoryCoreVisualStudio.Models.SubCategory", b =>
+            modelBuilder.Entity("InventoryCoreVisualStudio.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CategoryId");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("SubCategory");
+                    b.HasOne("InventoryCoreVisualStudio.Models.Category", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("InventoryCoreVisualStudio.Models.Item", b =>
@@ -282,14 +277,6 @@ namespace InventoryCoreVisualStudio.Migrations
                     b.HasOne("InventoryCoreVisualStudio.Models.Manufacturer", "Manufacturer")
                         .WithMany()
                         .HasForeignKey("ManufacturerId");
-                });
-
-            modelBuilder.Entity("InventoryCoreVisualStudio.Models.SubCategory", b =>
-                {
-                    b.HasOne("InventoryCoreVisualStudio.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
