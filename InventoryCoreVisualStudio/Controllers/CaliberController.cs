@@ -12,17 +12,19 @@ using InventoryCoreVisualStudio.ViewModels;
 
 namespace InventoryCoreVisualStudio.Controllers
 {
-    //[Route("administration/[controller]")]
+    //[Route("admin/[controller]")]
     public class CaliberController : Controller
     {
-        private readonly InventoryContext _context;
-        private readonly ICaliberData _caliberData;
+        //private readonly InventoryContext _context;
+        //private readonly ICaliberData _caliberData;
+        private ICaliberRepository _caliberRepository;
 
-        public CaliberController(InventoryContext context, ICaliberData caliberData)
-        {
-            _context = context;
-            _caliberData = caliberData;
-        }
+        //public CaliberController()
+        //{
+        //    _caliberRepository = new CaliberRepository(new InventoryContext());
+        //}
+
+        public CaliberController(ICaliberRepository caliberRepository) => _caliberRepository = caliberRepository;
 
         //[Route("List")]
         // GET: Caliber
@@ -30,7 +32,7 @@ namespace InventoryCoreVisualStudio.Controllers
         {
             //var calList = _context.Caliber;
             //return View(await calList.ToListAsync());
-            var model = _caliberData.GetAll();
+            var model = _caliberRepository.GetCaliber();
             return View(model.ToList());
             
         }
@@ -52,7 +54,7 @@ namespace InventoryCoreVisualStudio.Controllers
 
             //return View(caliber);
 
-            var model = _caliberData.Get(id);
+            var model = _caliberRepository.GetCaliberById(id);
             if (model == null)
             {
                 //return NotFound();
@@ -67,8 +69,8 @@ namespace InventoryCoreVisualStudio.Controllers
 		    {
 			    return NotFound();
 		    }
-		    var caliber = await _context.Caliber
-			    .SingleOrDefaultAsync(c => c.Name == name);
+            var caliber = _caliberRepository.GetCaliber().FirstOrDefault(c => c.Name == name);
+
 		    if (caliber == null)
 		    {
 			    return NotFound();
@@ -91,8 +93,10 @@ namespace InventoryCoreVisualStudio.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(caliber);
-                await _context.SaveChangesAsync();
+                _caliberRepository.InsertCaliber(caliber);
+                //_context.Add(caliber);
+                //await _context.SaveChangesAsync();
+                _caliberRepository.Save();
                 return RedirectToAction(nameof(Index));
             }
             return View(caliber);
@@ -106,7 +110,9 @@ namespace InventoryCoreVisualStudio.Controllers
             caliber.DecimalSize = model.DecimalSize;
             caliber.MetricSize = model.MetricSize;
 
-            _caliberData.Add(caliber);
+            _caliberRepository.InsertCaliber(caliber);
+            _caliberRepository.Save();
+            //_caliberData.Add(caliber);
             return RedirectToAction("Details", new { Id= caliber.Id});
         }
         // GET: Caliber/Edit/5
@@ -117,7 +123,8 @@ namespace InventoryCoreVisualStudio.Controllers
                 return NotFound();
             }
 
-            var caliber = await _context.Caliber.SingleOrDefaultAsync(m => m.Id == id);
+            var caliber = _caliberRepository.GetCaliberById(id);
+            //var caliber = await _context.Caliber.SingleOrDefaultAsync(m => m.Id == id);
             if (caliber == null)
             {
                 return NotFound();
@@ -130,7 +137,7 @@ namespace InventoryCoreVisualStudio.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,DecimalSize,MetricSize")] CaliberViewModel caliber)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,DecimalSize,MetricSize")] Caliber caliber)
         {
             if (id != caliber.Id)
             {
@@ -141,8 +148,9 @@ namespace InventoryCoreVisualStudio.Controllers
             {
                 try
                 {
-                    _context.Update(caliber);
-                    await _context.SaveChangesAsync();
+                    _caliberRepository.UpdateCaliber(caliber);
+                    //_context.Update(caliber);
+                    //await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -168,8 +176,9 @@ namespace InventoryCoreVisualStudio.Controllers
                 return NotFound();
             }
 
-            var caliber = await _context.Caliber
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var caliber = _caliberRepository.GetCaliberById(id);
+            //var caliber = await _context.Caliber
+              //  .SingleOrDefaultAsync(m => m.Id == id);
             if (caliber == null)
             {
                 return NotFound();
@@ -183,15 +192,19 @@ namespace InventoryCoreVisualStudio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var caliber = await _context.Caliber.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Caliber.Remove(caliber);
-            await _context.SaveChangesAsync();
+            var caliber = _caliberRepository.GetCaliberById(id);
+            //var caliber = await _context.Caliber.SingleOrDefaultAsync(m => m.Id == id);
+            //_context.Caliber.Remove(caliber);
+            _caliberRepository.DeleteCaliber(id);
+            _caliberRepository.Save();
+            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CaliberExists(int id)
         {
-            return _context.Caliber.Any(e => e.Id == id);
+            return _caliberRepository.GetCaliber().Any(c => c.Id == id);
+            //return _context.Caliber.Any(e => e.Id == id);
         }
     }
 }

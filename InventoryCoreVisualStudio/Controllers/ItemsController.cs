@@ -26,6 +26,7 @@ namespace InventoryCoreVisualStudio.Controllers
             var inventoryContext = _context.Items
 				.Include(i => i.Caliber)
 				.Include(i => i.Category)
+                    .ThenInclude(sc => sc.Children)
 				.Include(i => i.Location)
 				.Include(i => i.Manufacturer)
 				.Include(i => i.Platform)

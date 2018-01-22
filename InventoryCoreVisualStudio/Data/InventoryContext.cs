@@ -5,6 +5,10 @@ namespace InventoryCoreVisualStudio.Data
 {
     public class InventoryContext: DbContext
     {
+        public InventoryContext()
+        {
+        }
+
         public InventoryContext(DbContextOptions<InventoryContext> options): base(options)
         {
         }
