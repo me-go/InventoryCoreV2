@@ -58,8 +58,9 @@ namespace InventoryCoreVisualStudio.Controllers
             if (model == null)
             {
                 //return NotFound();
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
+
             return View(model);
         }
 
@@ -123,13 +124,9 @@ namespace InventoryCoreVisualStudio.Controllers
                 return NotFound();
             }
 
-            var caliber = _caliberRepository.GetCaliberById(id);
-            //var caliber = await _context.Caliber.SingleOrDefaultAsync(m => m.Id == id);
-            if (caliber == null)
-            {
-                return NotFound();
-            }
-            return View(caliber);
+            var model = _caliberRepository.GetCaliberById(id);
+         
+            return View(model);
         }
 
         // POST: Caliber/Edit/5
@@ -137,35 +134,53 @@ namespace InventoryCoreVisualStudio.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,DecimalSize,MetricSize")] Caliber caliber)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id != caliber.Id)
+            Caliber model = _caliberRepository.GetCaliberById(id);
+            if (model == null)
             {
-                return NotFound();
+                //return NotFound();
+                return RedirectToAction("Index");
             }
 
-            if (ModelState.IsValid)
+            if (await TryUpdateModelAsync<Caliber>(model,
+                "",
+                c => c.Name, c => c.MetricSize, c => c.DecimalSize))
             {
                 try
                 {
-                    _caliberRepository.UpdateCaliber(caliber);
-                    //_context.Update(caliber);
-                    //await _context.SaveChangesAsync();
+                    _caliberRepository.Save();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException)
                 {
-                    if (!CaliberExists(caliber.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError("", @"Unable to save changes. 
+                        Try again, and if the problem persists, see your system administrator.");
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(caliber);
+
+            //if (ModelState.IsValid)
+            //{
+            //    try
+            //    {
+            //        _caliberRepository.UpdateCaliber(caliber);
+            //        //_context.Update(caliber);
+            //        //await _context.SaveChangesAsync();
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        if (!CaliberExists(caliber.Id))
+            //        {
+            //            return NotFound();
+            //        }
+            //        else
+            //        {
+            //            throw;
+            //        }
+            //    }
+            //    return RedirectToAction(nameof(Index));
+            //}
+            return View(model);
         }
 
         // GET: Caliber/Delete/5

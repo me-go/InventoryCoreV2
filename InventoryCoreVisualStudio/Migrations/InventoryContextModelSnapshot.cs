@@ -25,7 +25,7 @@ namespace InventoryCoreVisualStudio.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<decimal>("DecimalSize")
+                    b.Property<double>("DecimalSize")
                         .HasColumnType("decimal(4,3)");
 
                     b.Property<string>("MetricSize");
