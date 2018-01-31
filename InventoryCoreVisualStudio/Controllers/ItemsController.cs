@@ -21,9 +21,13 @@ namespace InventoryCoreVisualStudio.Controllers
         }
 
         // GET: Items
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            var inventoryContext = _context.Items
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["ModelSortParm"] = sortOrder == "Model" ? "model_desc" : "Model";
+            ViewData["CurrentFilter"] = searchString;
+
+            var items = _context.Items
 				.Include(i => i.Caliber)
 				.Include(i => i.Category)
                     .ThenInclude(sc => sc.Children)
@@ -33,7 +37,33 @@ namespace InventoryCoreVisualStudio.Controllers
 				.Include(i => i.Retailer)
                 .Include(i => i.FiringAction)
                 .AsNoTracking();
-            return View(await inventoryContext.ToListAsync());
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                //Using ToUpper() is used to ensure case insensitive search when running against an IQueryable(database provider implementation
+                //ToUpper() is not necessary when running against IEnumerable that would be returned from a repository. 
+                //There is performatnce overhead associated with using ToUpper()
+                items = items.Where(i => i.Name.ToUpper().Contains(searchString)
+                            || i.Model.ToUpper().Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    items = items.OrderByDescending(i => i.Name);
+                    break;
+                case "Model":
+                    items = items.OrderBy(i => i.Model);
+                    break;
+                case "model_desc":
+                    items = items.OrderByDescending(i => i.Model);
+                    break;
+                default:
+                    items = items.OrderBy(i => i.Name);
+                    break;
+            }
+
+            return View(await items.ToListAsync());
         }
 
 	    public async Task<IActionResult> GetAll()

@@ -54,7 +54,7 @@ namespace InventoryCoreVisualStudio.Controllers
 
             //return View(caliber);
 
-            var model = _caliberRepository.GetCaliberById(id);
+            var model = _caliberRepository.GetByIdNotracking(id);
             if (model == null)
             {
                 //return NotFound();
@@ -124,7 +124,7 @@ namespace InventoryCoreVisualStudio.Controllers
                 return NotFound();
             }
 
-            var model = _caliberRepository.GetCaliberById(id);
+            var model = _caliberRepository.GetByIdNotracking(id);
          
             return View(model);
         }
@@ -136,7 +136,7 @@ namespace InventoryCoreVisualStudio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id)
         {
-            Caliber model = _caliberRepository.GetCaliberById(id);
+            Caliber model = _caliberRepository.GetByIdNotracking(id);
             if (model == null)
             {
                 //return NotFound();
@@ -184,19 +184,26 @@ namespace InventoryCoreVisualStudio.Controllers
         }
 
         // GET: Caliber/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var caliber = _caliberRepository.GetCaliberById(id);
+            var caliber = _caliberRepository.GetByIdNotracking(id);
             //var caliber = await _context.Caliber
               //  .SingleOrDefaultAsync(m => m.Id == id);
             if (caliber == null)
             {
                 return NotFound();
+            }
+
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewData["ErrorMessage"] = @"Delete failed. Try again, and if the problem persists
+                                                see your system administrator.";
             }
 
             return View(caliber);
@@ -207,13 +214,26 @@ namespace InventoryCoreVisualStudio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var caliber = _caliberRepository.GetCaliberById(id);
+            var caliber = _caliberRepository.GetByIdNotracking(id);
             //var caliber = await _context.Caliber.SingleOrDefaultAsync(m => m.Id == id);
             //_context.Caliber.Remove(caliber);
-            _caliberRepository.DeleteCaliber(id);
-            _caliberRepository.Save();
-            //await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if(caliber == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            try
+            {
+                _caliberRepository.DeleteCaliber(id);
+                _caliberRepository.Save();
+                //await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch(DbUpdateException ex)
+            {
+                return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
+            }
+            
         }
 
         private bool CaliberExists(int id)

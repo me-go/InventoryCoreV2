@@ -17,14 +17,14 @@ namespace InventoryCoreVisualStudio.Data
             _context = context;
         }
         
-        public IEnumerable<Caliber> GetAll()
+        public IEnumerable<Caliber> GetAllNoTracking()
         {
             return _context.Caliber.AsNoTracking().ToList();
         }
 
-        public Caliber GetById(int Id)
+        public Caliber GetByIdNotracking(int Id)
         {
-            return GetAll().FirstOrDefault(c => c.Id == Id);
+            return GetAllNoTracking().FirstOrDefault(c => c.Id == Id);
         }
 
         public IEnumerable<Caliber> GetCaliber()
@@ -32,7 +32,7 @@ namespace InventoryCoreVisualStudio.Data
             return _context.Caliber.ToList();
         }
 
-        public Caliber GetCaliberById(int? id)
+        public Caliber GetByIdNotracking(int? id)
         {
             return _context.Caliber.Find(id);
         }

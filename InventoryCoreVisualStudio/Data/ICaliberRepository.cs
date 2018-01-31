@@ -9,7 +9,7 @@ namespace InventoryCoreVisualStudio.Data
     public interface ICaliberRepository : IDisposable
     {
         IEnumerable<Caliber> GetCaliber();
-        Caliber GetCaliberById(int? id);
+        Caliber GetByIdNotracking(int? id);
         void InsertCaliber(Caliber caliber);
         void DeleteCaliber(int id);
         void UpdateCaliber(Caliber caliber);
