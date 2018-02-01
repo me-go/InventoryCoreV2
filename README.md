@@ -1,7 +1,6 @@
 # InventoryCoreV2
 ## https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro
-## https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/sort-filter-page  
-## https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/sort-filter-page#add-paging-functionality-to-the-students-index-page
+## https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/sort-filter-page#create-an-about-page-that-shows-student-statistics
 
 add-migration init -context InventoryContext
 get-help entityframeworkcore
