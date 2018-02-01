@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InventoryCoreVisualStudio.Models.Item>
+﻿@model PaginatedList<InventoryCoreVisualStudio.Models.Item>
 
 @{
     ViewData["Title"] = "Index";
@@ -24,67 +24,92 @@
     <thead>
         <tr>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Name)</a>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFileter"]">
+@*                        @Html.DisplayNameFor(model => model.Name)*@
+                        Name
+                    </a>
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["ModelSortParm"]">@Html.DisplayNameFor(model => model.Model)</a>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["ModelSortParm"]" asp-route-currentFilter="@ViewData["CurrentFileter"]">
+@*                        @Html.DisplayNameFor(model => model.Model)*@
+                        Model
+                    </a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PartNumber)
+@*                    @Html.DisplayNameFor(model => model.PartNumber)*@
+                    PartNumber
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FiringAction)
+@*                    @Html.DisplayNameFor(model => model.FiringAction)*@
+                    FiringAction
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Color)
+@*                    @Html.DisplayNameFor(model => model.Color)*@
+                    Color
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PurchaseDate)
+@*                    @Html.DisplayNameFor(model => model.PurchaseDate)*@
+                    PurchaseDate
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PurchasePrice)
+@*                    @Html.DisplayNameFor(model => model.PurchasePrice)*@
+                    PurchasePrice
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PurchaseFrom)
+@*                    @Html.DisplayNameFor(model => model.PurchaseFrom)*@
+                    PurchaseFrom
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ListPrice)
+@*                    @Html.DisplayNameFor(model => model.ListPrice)*@
+                    ListPrice
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.SerialNumber)
+@*                    @Html.DisplayNameFor(model => model.SerialNumber)*@
+                    SerialNumber
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Weight)
+@*                    @Html.DisplayNameFor(model => model.Weight)*@
+                    Weight
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.WeightUnitOfMeasure)
+@*                    @Html.DisplayNameFor(model => model.WeightUnitOfMeasure)*@
+                    WeightUnitOfMeasure
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.SoldDate)
+@*                    @Html.DisplayNameFor(model => model.SoldDate)*@
+                    SoldDate
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.SoldTo)
+@*                    @Html.DisplayNameFor(model => model.SoldTo)*@
+                    SoldTo
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.SoldPrice)
+@*                    @Html.DisplayNameFor(model => model.SoldPrice)*@
+                    SoldPrice
                 </th>
             <th>
-                @Html.DisplayNameFor(model => model.Caliber)
+@*                @Html.DisplayNameFor(model => model.Caliber)*@
+                Caliber
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+@*                @Html.DisplayNameFor(model => model.Category)*@
+                Category
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Location)
+@*                @Html.DisplayNameFor(model => model.Location)*@
+                Location
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Manufacturer)
+@*                @Html.DisplayNameFor(model => model.Manufacturer)*@
+                Manufacturer
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Platform)
+@*                @Html.DisplayNameFor(model => model.Platform)*@
+                Platform
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Retailer)
+@*                @Html.DisplayNameFor(model => model.Retailer)*@
+                Retailer
             </th>
             <th></th>
         </tr>
@@ -164,3 +189,23 @@
 }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

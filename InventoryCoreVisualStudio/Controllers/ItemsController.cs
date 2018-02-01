@@ -21,13 +21,23 @@ namespace InventoryCoreVisualStudio.Controllers
         }
 
         // GET: Items
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+	        ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["ModelSortParm"] = sortOrder == "Model" ? "model_desc" : "Model";
-            ViewData["CurrentFilter"] = searchString;
+            
+	        if (searchString != null)
+	        {
+		        page = 1;
+	        }
+	        else
+	        {
+		        searchString = currentFilter;
+	        }
+	        ViewData["CurrentFilter"] = searchString;
 
-            var items = _context.Items
+			var items = _context.Items
 				.Include(i => i.Caliber)
 				.Include(i => i.Category)
                     .ThenInclude(sc => sc.Children)
@@ -63,19 +73,21 @@ namespace InventoryCoreVisualStudio.Controllers
                     break;
             }
 
-            return View(await items.ToListAsync());
+			int pageSize = 3;
+
+            return View(await PaginatedList<Item>.CreateAsync(items.AsNoTracking(), page ?? 1, pageSize));
         }
 
-	    public async Task<IActionResult> GetAll()
-	    {
-		    var itemsList = _context.Items.FromSql(@"SELECT [Id],[ActionId],[CaliberId],[CategoryId],[Color],[FiringActionId],[ListPrice],[LocationId],[ManufacturerId]
-			    ,[Model],[Name],[PartNumber],[PlatformId],[PurchaseDate],[PurchaseFrom],[PurchasePrice],[RetailerId],[SerialNumber]
-			    ,[SoldDate],[SoldPrice],[SoldTo],[Weight],[WeightUnitOfMeasure]
-		    FROM[dbo].[Item]").OrderByDescending(i => i.Name);
-
-
-		    return View("Index", await itemsList.ToListAsync());
-	    }
+//	    public async Task<IActionResult> GetAll()
+//	    {
+//		    var itemsList = _context.Items.FromSql(@"SELECT [Id],[ActionId],[CaliberId],[CategoryId],[Color],[FiringActionId],[ListPrice],[LocationId],[ManufacturerId]
+//			    ,[Model],[Name],[PartNumber],[PlatformId],[PurchaseDate],[PurchaseFrom],[PurchasePrice],[RetailerId],[SerialNumber]
+//			    ,[SoldDate],[SoldPrice],[SoldTo],[Weight],[WeightUnitOfMeasure]
+//		    FROM[dbo].[Item]").OrderByDescending(i => i.Name);
+//
+//
+//		    return View("Index", await itemsList.ToListAsync());
+//	    }
         // GET: Items/Details/5
         public async Task<IActionResult> Details(int? id)
         {
