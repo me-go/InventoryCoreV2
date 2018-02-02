@@ -1,0 +1,30 @@
+﻿@model IEnumerable<InventoryCoreVisualStudio.ViewModels.ItemSummaryViewModel>
+
+@{
+    ViewData["Title"] = "Item Purchased Statistics";
+}
+
+<h2>Item Purchased Statistics</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Year
+        </th>
+        <th>
+            Items
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseYear)
+            </td>
+            <td>
+                @item.ItemCount
+            </td>
+        </tr>
+    }
+</table>

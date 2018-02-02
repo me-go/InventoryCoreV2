@@ -11,9 +11,10 @@ using System;
 namespace InventoryCoreVisualStudio.Migrations
 {
     [DbContext(typeof(InventoryContext))]
-    partial class InventoryContextModelSnapshot : ModelSnapshot
+    [Migration("20180129005646_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +26,7 @@ namespace InventoryCoreVisualStudio.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<decimal>("DecimalSize")
+                    b.Property<double>("DecimalSize")
                         .HasColumnType("decimal(4,3)");
 
                     b.Property<string>("MetricSize");
@@ -72,13 +73,13 @@ namespace InventoryCoreVisualStudio.Migrations
 
                     b.Property<int>("CaliberId");
 
-                    b.Property<int?>("CategoryId");
+                    b.Property<int>("CategoryId");
 
                     b.Property<string>("Color");
 
-                    b.Property<int?>("FiringActionId");
+                    b.Property<int>("FiringActionId");
 
-                    b.Property<decimal?>("ListPrice");
+                    b.Property<decimal>("ListPrice");
 
                     b.Property<int>("LocationId");
 
@@ -92,7 +93,7 @@ namespace InventoryCoreVisualStudio.Migrations
 
                     b.Property<int>("PlatformId");
 
-                    b.Property<DateTime?>("PurchaseDate");
+                    b.Property<DateTime>("PurchaseDate");
 
                     b.Property<string>("PurchaseFrom");
 
@@ -102,13 +103,13 @@ namespace InventoryCoreVisualStudio.Migrations
 
                     b.Property<string>("SerialNumber");
 
-                    b.Property<DateTime?>("SoldDate");
+                    b.Property<DateTime>("SoldDate");
 
-                    b.Property<decimal?>("SoldPrice");
+                    b.Property<decimal>("SoldPrice");
 
                     b.Property<string>("SoldTo");
 
-                    b.Property<decimal?>("Weight");
+                    b.Property<decimal>("Weight");
 
                     b.Property<string>("WeightUnitOfMeasure");
 
@@ -239,11 +240,13 @@ namespace InventoryCoreVisualStudio.Migrations
 
                     b.HasOne("InventoryCoreVisualStudio.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("InventoryCoreVisualStudio.Models.FiringAction", "FiringAction")
                         .WithMany()
-                        .HasForeignKey("FiringActionId");
+                        .HasForeignKey("FiringActionId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("InventoryCoreVisualStudio.Models.Location", "Location")
                         .WithMany()

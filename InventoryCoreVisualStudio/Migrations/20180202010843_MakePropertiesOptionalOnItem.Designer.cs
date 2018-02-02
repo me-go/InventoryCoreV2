@@ -11,9 +11,10 @@ using System;
 namespace InventoryCoreVisualStudio.Migrations
 {
     [DbContext(typeof(InventoryContext))]
-    partial class InventoryContextModelSnapshot : ModelSnapshot
+    [Migration("20180202010843_MakePropertiesOptionalOnItem")]
+    partial class MakePropertiesOptionalOnItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
