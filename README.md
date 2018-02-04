@@ -1,6 +1,7 @@
 # InventoryCoreV2
 ## https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro
 ## https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/migrations
+https://www.youtube.com/watch?v=E7Voso411Vs
 
 add-migration init -context InventoryContext
 get-help entityframeworkcore
