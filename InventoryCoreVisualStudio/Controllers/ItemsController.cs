@@ -226,7 +226,7 @@ namespace InventoryCoreVisualStudio.Controllers
         }
 
         // GET: Items/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
@@ -241,13 +241,19 @@ namespace InventoryCoreVisualStudio.Controllers
                 .Include(i => i.Platform)
                 .Include(i => i.Retailer)
                 .Include(i => i.FiringAction)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (item == null)
             {
                 return NotFound();
             }
 
-            return View(item);
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewData["ErrorMessage"] = @"Delete Failed. Try again, and if the problem persists 
+                                                see your system administrator";
+            }
+                return View(item);
         }
 
         // POST: Items/Delete/5
@@ -255,10 +261,26 @@ namespace InventoryCoreVisualStudio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var item = await _context.Items.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Items.Remove(item);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var item = await _context.Items
+                .AsNoTracking()
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            if(item == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            try
+            {
+                _context.Items.Remove(item);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch(DbUpdateException ex)
+            {
+                return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
+            }
+            
         }
 
         private bool ItemExists(int id)
