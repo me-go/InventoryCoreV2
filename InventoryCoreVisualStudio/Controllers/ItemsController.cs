@@ -153,7 +153,7 @@ namespace InventoryCoreVisualStudio.Controllers
         public ViewResult Create2(ItemViewModel model)
         {
             var item = new Item();
-            item.Name = model.Name;
+            item.Model = model.Model;
             item.Caliber = model.Caliber;
 
 

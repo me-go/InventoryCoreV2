@@ -33,8 +33,17 @@ namespace InventoryCoreVisualStudio.Data
                 .WithOne(c => c.Parent)
                 .HasForeignKey(c => c.ParentId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
-            
-                
+
+            modelBuilder.Entity<Item>()
+               .HasOne(d => d.Location)
+               .WithMany()
+               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Item>()
+                .HasOne(f => f.FiringAction)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
 
         //	    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
