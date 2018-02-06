@@ -1,6 +1,10 @@
 # InventoryCoreV2
-## https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro
-## https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/migrations
+## https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/complex-data-model
+## https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/advanced
+## https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/read-related-data
+## https://docs.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/intro
+## https://docs.microsoft.com/en-us/ef/core/saving/transactions
+
 
 get-help entityframeworkcore
 get-help add-migrations
