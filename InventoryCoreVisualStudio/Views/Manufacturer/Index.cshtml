@@ -46,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.State)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Website)
+                <a href="@Html.DisplayFor(modelItem => item.Website)" target="_blank">@item.Website</a>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
