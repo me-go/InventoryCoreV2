@@ -150,38 +150,62 @@ namespace InventoryCoreVisualStudio.Controllers
             return View(item);
         }
 
-        public ViewResult Create2(ItemViewModel model)
-        {
-            var item = new Item();
-            item.Model = model.Model;
-            item.Caliber = model.Caliber;
-
-
-            return View(item);
-        }
-
         // GET: Items/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpGet]
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var item = await _context.Items.SingleOrDefaultAsync(m => m.Id == id);
+            var item = _context.Items.SingleOrDefault(m => m.Id == id);
             if (item == null)
             {
                 return NotFound();
             }
-            var caliberList = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId);
-            ViewData["CaliberId"] = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId);
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", item.CategoryId);
-            ViewData["LocationId"] = new SelectList(_context.Location, "Id", "Name", item.LocationId);
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturer, "Id", "Name", item.ManufacturerId);
-            ViewData["PlatformId"] = new SelectList(_context.Platform, "Id", "Name", item.PlatformId);
-            ViewData["RetailerId"] = new SelectList(_context.Retailer, "Id", "Name", item.RetailerId);
-            ViewData["FiringActionId"] = new SelectList(_context.FiringAction, "Id", "Name", item.FiringActionId);
-            return View(item);
+            var editItem = new ItemEditViewModel
+            {
+                Id = item.Id,                
+                Model = item.Model,
+                PartNumber = item.PartNumber,
+                Color = item.Color,
+                PurchaseDate = item.PurchaseDate,
+                PurchasePrice = item.PurchasePrice,
+                PurchaseFrom = item.PurchaseFrom,                
+                ListPrice = item.ListPrice,
+                SerialNumber = item.SerialNumber,
+                Weight = item.Weight,
+                WeightUnitOfMeasure = item.WeightUnitOfMeasure,
+                SoldDate = item.SoldDate,
+                SoldTo = item.SoldTo,
+                SoldPrice = item.SoldPrice,
+                Manufacturers = _context.Manufacturer,
+                Calibers = _context.Caliber.ToList(),
+                Categorys = _context.Category,
+                Actions = _context.FiringAction,
+                Platforms = _context.Platform,
+                Retailers = _context.Retailer,
+                Locations = _context.Location
+            };
+
+            editItem.SelectedManufacturer = item.Manufacturer;
+            editItem.SelectedCaliber = item.Caliber;
+            editItem.SelectedCategory = item.Category;
+            editItem.SelectedFiringAction = item.FiringAction;
+            editItem.SelectedPlatform = item.Platform;
+            editItem.SelectedRetailer = item.Retailer;
+            editItem.SelectedLocation = item.Location;
+
+            //var caliberList = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId);
+            //ViewData["CaliberId"] = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId);
+            //ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", item.CategoryId);
+            //ViewData["LocationId"] = new SelectList(_context.Location, "Id", "Name", item.LocationId);
+            //ViewData["ManufacturerId"] = new SelectList(_context.Manufacturer, "Id", "Name", item.ManufacturerId);
+            //ViewData["PlatformId"] = new SelectList(_context.Platform, "Id", "Name", item.PlatformId);
+            //ViewData["RetailerId"] = new SelectList(_context.Retailer, "Id", "Name", item.RetailerId);
+            //ViewData["FiringActionId"] = new SelectList(_context.FiringAction, "Id", "Name", item.FiringActionId);
+            return View(editItem);
         }
 
         // POST: Items/Edit/5
