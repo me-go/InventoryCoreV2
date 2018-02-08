@@ -11,9 +11,10 @@ using System;
 namespace InventoryCoreVisualStudio.Migrations
 {
     [DbContext(typeof(InventoryContext))]
-    partial class InventoryContextModelSnapshot : ModelSnapshot
+    [Migration("20180205223718_MaxLengthOnNames")]
+    partial class MaxLengthOnNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,8 +92,11 @@ namespace InventoryCoreVisualStudio.Migrations
 
                     b.Property<int>("ManufacturerId");
 
-                    b.Property<string>("Model")
-                        .IsRequired();
+                    b.Property<string>("Model");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30);
 
                     b.Property<string>("PartNumber");
 
@@ -102,8 +106,7 @@ namespace InventoryCoreVisualStudio.Migrations
 
                     b.Property<string>("PurchaseFrom");
 
-                    b.Property<decimal>("PurchasePrice")
-                        .HasColumnType("money");
+                    b.Property<decimal>("PurchasePrice");
 
                     b.Property<int?>("RetailerId");
 
@@ -111,8 +114,7 @@ namespace InventoryCoreVisualStudio.Migrations
 
                     b.Property<DateTime?>("SoldDate");
 
-                    b.Property<decimal?>("SoldPrice")
-                        .HasColumnType("money");
+                    b.Property<decimal?>("SoldPrice");
 
                     b.Property<string>("SoldTo");
 
@@ -261,13 +263,12 @@ namespace InventoryCoreVisualStudio.Migrations
 
                     b.HasOne("InventoryCoreVisualStudio.Models.FiringAction", "FiringAction")
                         .WithMany()
-                        .HasForeignKey("FiringActionId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("FiringActionId");
 
                     b.HasOne("InventoryCoreVisualStudio.Models.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("InventoryCoreVisualStudio.Models.Manufacturer", "Manufacturer")
                         .WithMany()

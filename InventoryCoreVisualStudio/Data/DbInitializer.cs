@@ -11,7 +11,7 @@ namespace InventoryCoreVisualStudio.Data
     {
         public static void Initialize(InventoryContext context)
         {
-            if(context.Database.EnsureCreated()) context.Database.Migrate();
+//            if(context.Database.EnsureCreated()) context.Database.Migrate();
             //Look for existance of any items in DB.
             if (context.Items.Any())
             {
@@ -103,8 +103,8 @@ namespace InventoryCoreVisualStudio.Data
 
             var items = new Item[]
             {
-                new Item{ Name="Daniel Defence M4", ManufacturerId=1, Model="DDM4V11", CaliberId=1, CategoryId=1, FiringActionId=1, PlatformId=2, Color="Ghost Grey", LocationId=1, PurchaseDate=new DateTime(2016, 4, 13), RetailerId=1 },
-                new Item{ Name="Aero Precision Build", ManufacturerId=4, Model="Self Build", CaliberId=2, CategoryId=1, FiringActionId=2, PlatformId=2, Color="Black", LocationId=2, PurchaseDate=new DateTime(2015, 6,11)}
+                new Item{ ManufacturerId=1, Model="DDM4V11", CaliberId=1, CategoryId=1, FiringActionId=1, PlatformId=2, Color="Ghost Grey", LocationId=1, PurchaseDate=new DateTime(2016, 4, 13), PurchasePrice = 1795.00M, RetailerId=1 },
+                new Item{ ManufacturerId=4, Model="Self Build", CaliberId=2, CategoryId=1, FiringActionId=2, PlatformId=2, Color="Black", LocationId=2, PurchaseDate=new DateTime(2015, 6,11), PurchasePrice = 1875.00M}
             };
             foreach(Item i in items)
             {
