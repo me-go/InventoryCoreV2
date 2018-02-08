@@ -173,6 +173,7 @@ namespace InventoryCoreVisualStudio.Controllers
             {
                 return NotFound();
             }
+            var caliberList = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId);
             ViewData["CaliberId"] = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId);
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", item.CategoryId);
             ViewData["LocationId"] = new SelectList(_context.Location, "Id", "Name", item.LocationId);
