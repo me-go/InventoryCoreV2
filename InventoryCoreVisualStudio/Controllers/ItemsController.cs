@@ -78,16 +78,6 @@ namespace InventoryCoreVisualStudio.Controllers
             return View(await PaginatedList<Item>.CreateAsync(items.AsNoTracking(), page ?? 1, pageSize));
         }
 
-//	    public async Task<IActionResult> GetAll()
-//	    {
-//		    var itemsList = _context.Items.FromSql(@"SELECT [Id],[ActionId],[CaliberId],[CategoryId],[Color],[FiringActionId],[ListPrice],[LocationId],[ManufacturerId]
-//			    ,[Model],[Name],[PartNumber],[PlatformId],[PurchaseDate],[PurchaseFrom],[PurchasePrice],[RetailerId],[SerialNumber]
-//			    ,[SoldDate],[SoldPrice],[SoldTo],[Weight],[WeightUnitOfMeasure]
-//		    FROM[dbo].[Item]").OrderByDescending(i => i.Name);
-//
-//
-//		    return View("Index", await itemsList.ToListAsync());
-//	    }
         // GET: Items/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -115,6 +105,7 @@ namespace InventoryCoreVisualStudio.Controllers
         }
 
         // GET: Items/Create
+        [HttpGet]
         public IActionResult Create()
         {
             var localCaliber = _context.Caliber;
@@ -175,6 +166,7 @@ namespace InventoryCoreVisualStudio.Controllers
             {
                 return NotFound();
             }
+
             var editItem = new ItemEditViewModel
             {
                 Id = item.Id,                
@@ -191,8 +183,6 @@ namespace InventoryCoreVisualStudio.Controllers
                 SoldDate = item.SoldDate,
                 SoldTo = item.SoldTo,
                 SoldPrice = item.SoldPrice,
-                //SelectedManufacturer = item.Manufacturer,
-                //Manufacturers = _context.Manufacturer,
                 ManufacturerObj = item.Manufacturer,
                 Manufacturer = item.ManufacturerId,
                 Manufacturers = new SelectList(_context.Manufacturer, "Id", "Name", item.ManufacturerId),
@@ -206,22 +196,7 @@ namespace InventoryCoreVisualStudio.Controllers
                 Locations = new SelectList(_context.Location, "Id", "Name", item.LocationId)
             };
 
-            //editItem.SelectedManufacturer = item.Manufacturer;
-            //editItem.SelectedCaliber = item.Caliber;
-            //editItem.SelectedCategory = item.Category;
-            //editItem.SelectedFiringAction = item.FiringAction;
-            //editItem.SelectedPlatform = item.Platform;
-            //editItem.SelectedRetailer = item.Retailer;
-            //editItem.SelectedLocation = item.Location;
-
-            //var caliberList = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId);
             //ViewData["CaliberId"] = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId);
-            //ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", item.CategoryId);
-            //ViewData["LocationId"] = new SelectList(_context.Location, "Id", "Name", item.LocationId);
-            //ViewData["ManufacturerId"] = new SelectList(_context.Manufacturer, "Id", "Name", item.ManufacturerId);
-            //ViewData["PlatformId"] = new SelectList(_context.Platform, "Id", "Name", item.PlatformId);
-            //ViewData["RetailerId"] = new SelectList(_context.Retailer, "Id", "Name", item.RetailerId);
-            //ViewData["FiringActionId"] = new SelectList(_context.FiringAction, "Id", "Name", item.FiringActionId);
             return View(editItem);
         }
 
@@ -281,12 +256,6 @@ namespace InventoryCoreVisualStudio.Controllers
                 return RedirectToAction(nameof(Index));
             }
             //ViewData["CaliberId"] = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId);
-            //ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", item.CategoryId);
-            //ViewData["LocationId"] = new SelectList(_context.Location, "Id", "Name", item.LocationId);
-            //ViewData["ManufacturerId"] = new SelectList(_context.Manufacturer, "Id", "Name", item.ManufacturerId);
-            //ViewData["PlatformId"] = new SelectList(_context.Platform, "Id", "Name", item.PlatformId);
-            //ViewData["RetailerId"] = new SelectList(_context.Retailer, "Id", "Name", item.RetailerId);
-            //ViewData["FiringActionId"] = new SelectList(_context.FiringAction, "Id", "Name", item.FiringActionId);
             return View(viewModel);
         }
 
