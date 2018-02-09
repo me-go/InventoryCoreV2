@@ -18,11 +18,11 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="ManufacturerId" class="control-label"></label>
-                <select asp-for="ManufacturerId" class="form-control" asp-items="ViewBag.ManufacturerId"></select>
-                <span asp-validation-for="ManufacturerId" class="text-danger"></span>
-            </div>*@
+            <div class="form-group">
+                <label asp-for="Manufacturer" class="control-label"></label>
+                <select asp-for="Manufacturer" class="form-control" asp-items="@Model.Manufacturers"></select>
+                <span asp-validation-for="Manufacturer" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Model" class="control-label"></label>
                 <input asp-for="Model" class="form-control" />
@@ -34,29 +34,26 @@
                 <span asp-validation-for="PartNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.Calibers)
-                @Html.DropDownListFor(m => m.Calibers, new SelectList(@Model.Calibers, "Id","Name", @Model.SelectedCaliber.Id.ToString()) , "--Select Caliber--")
-                @*<label asp-for="Calibers" class="control-label"></label>
-                <select asp-for="Calibers" class="form-control" asp-items="@(new SelectList(@Model.Calibers, "Id", "Name", @Model.SelectedCaliber.Id))"></select>*@
-                @*<span asp-validation-for="CaliberId" class="text-danger"></span>*@
-            </div>
-            <div>
-                @Model.SelectedCaliber
-            </div>
-            @*<div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                @*@Html.LabelFor(m => m.Calibers)
+                @Html.DropDownListFor(m => m.Calibers, new SelectList(@Model.Calibers, "Id","Name", @Model.SelectedCaliber.Id.ToString()) , "--Select Caliber--")*@
+                <label asp-for="Caliber" class="control-label"></label>
+                <select asp-for="Caliber" class="form-control" asp-items="@Model.Calibers"></select>
+                <span asp-validation-for="Caliber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FiringActionId" class="control-label"></label>
-                <select asp-for="FiringActionId" class="form-control" asp-items="ViewBag.FiringActionId"></select>
-                <span asp-validation-for="FiringActionId" class="text-danger"></span>
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="Category" class="form-control" asp-items="@Model.Categories"></select>
+                <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PlatformId" class="control-label"></label>
-                <select asp-for="PlatformId" class="form-control" asp-items="ViewBag.PlatformId"></select>
-                <span asp-validation-for="PlatformId" class="text-danger"></span>
+                <label asp-for="FiringAction" class="control-label"></label>
+                <select asp-for="FiringAction" class="form-control" asp-items="@Model.FiringActions"></select>
+                <span asp-validation-for="FiringAction" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Platform" class="control-label"></label>
+                <select asp-for="Platform" class="form-control" asp-items="@Model.Platforms"></select>
+                <span asp-validation-for="Platform" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Color" class="control-label"></label>
@@ -79,9 +76,9 @@
                 <span asp-validation-for="PurchaseFrom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RetailerId" class="control-label"></label>
-                <select asp-for="RetailerId" class="form-control" asp-items="ViewBag.RetailerId"></select>
-                <span asp-validation-for="RetailerId" class="text-danger"></span>
+                <label asp-for="Retailer" class="control-label"></label>
+                <select asp-for="Retailer" class="form-control" asp-items="@Model.Retailers"></select>
+                <span asp-validation-for="Retailer" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ListPrice" class="control-label"></label>
@@ -89,9 +86,9 @@
                 <span asp-validation-for="ListPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LocationId" class="control-label"></label>
-                <select asp-for="LocationId" class="form-control" asp-items="ViewBag.LocationId"></select>
-                <span asp-validation-for="LocationId" class="text-danger"></span>
+                <label asp-for="Location" class="control-label"></label>
+                <select asp-for="Location" class="form-control" asp-items="@Model.Locations"></select>
+                <span asp-validation-for="Location" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SerialNumber" class="control-label"></label>
@@ -122,7 +119,7 @@
                 <label asp-for="SoldPrice" class="control-label"></label>
                 <input asp-for="SoldPrice" class="form-control" />
                 <span asp-validation-for="SoldPrice" class="text-danger"></span>
-            </div>*@
+            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

@@ -1,6 +1,8 @@
 ﻿using InventoryCoreVisualStudio.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,30 +15,32 @@ namespace InventoryCoreVisualStudio.ViewModels
         {
             get
             {
-                return SelectedManufacturer != null ? SelectedManufacturer.Name + " " + Model : Model;
+                return ManufacturerObj != null ? ManufacturerObj.Name + " " + Model : Model;
             }
         }
-        public Manufacturer SelectedManufacturer { get; set; }
-        public IEnumerable<Manufacturer> Manufacturers { get; set; }
+
+        public int Manufacturer { get; set; }
+        public Manufacturer ManufacturerObj { get; set; }
+        public IEnumerable<SelectListItem> Manufacturers { get; set; }
         public string Model { get; set; }
         public string PartNumber { get; set; }
-        public Caliber SelectedCaliber { get; set; }
-        public IEnumerable<Caliber> Calibers { get; set; }
-        public Category SelectedCategory { get; set; }
-        public IEnumerable<Category> Categorys { get; set; }
-        public FiringAction SelectedFiringAction { get; set; }
-        public IEnumerable<FiringAction> Actions { get; set; }
-        public Platform SelectedPlatform { get; set; }
-        public IEnumerable<Platform> Platforms { get; set; }
+        public int Caliber { get; set; }
+        public IEnumerable<SelectListItem> Calibers { get; set; }
+        public int Category { get; set; }
+        public IEnumerable<SelectListItem> Categories { get; set; }
+        public int FiringAction { get; set; }
+        public IEnumerable<SelectListItem> FiringActions { get; set; }
+        public int Platform { get; set; }
+        public IEnumerable<SelectListItem> Platforms { get; set; }
         public string Color { get; set; }
         public DateTime? PurchaseDate { get; set; }
         public decimal PurchasePrice { get; set; }
         public string PurchaseFrom { get; set; }
-        public Retailer SelectedRetailer { get; set; }
-        public IEnumerable<Retailer> Retailers { get; set; }
+        public int Retailer { get; set; }
+        public IEnumerable<SelectListItem> Retailers { get; set; }
         public decimal? ListPrice { get; set; }
-        public Location SelectedLocation { get; set; }
-        public IEnumerable<Location> Locations { get; set; }
+        public int Location { get; set; }
+        public IEnumerable<SelectListItem> Locations { get; set; }
         public string SerialNumber { get; set; }
         public decimal? Weight { get; set; }
         public string WeightUnitOfMeasure { get; set; }

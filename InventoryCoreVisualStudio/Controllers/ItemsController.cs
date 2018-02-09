@@ -158,8 +158,19 @@ namespace InventoryCoreVisualStudio.Controllers
             {
                 return NotFound();
             }
+            
+            var item = _context.Items
+                .Include(i => i.Caliber)
+                .Include(i => i.Category)
+                    .ThenInclude(sc => sc.Children)
+                .Include(i => i.Location)
+                .Include(i => i.Manufacturer)
+                .Include(i => i.Platform)
+                .Include(i => i.Retailer)
+                .Include(i => i.FiringAction)
+                .AsNoTracking()
+                .SingleOrDefault(m => m.Id == id);
 
-            var item = _context.Items.SingleOrDefault(m => m.Id == id);
             if (item == null)
             {
                 return NotFound();
@@ -180,22 +191,28 @@ namespace InventoryCoreVisualStudio.Controllers
                 SoldDate = item.SoldDate,
                 SoldTo = item.SoldTo,
                 SoldPrice = item.SoldPrice,
-                Manufacturers = _context.Manufacturer,
-                Calibers = _context.Caliber.ToList(),
-                Categorys = _context.Category,
-                Actions = _context.FiringAction,
-                Platforms = _context.Platform,
-                Retailers = _context.Retailer,
-                Locations = _context.Location
+                //SelectedManufacturer = item.Manufacturer,
+                //Manufacturers = _context.Manufacturer,
+                ManufacturerObj = item.Manufacturer,
+                Manufacturer = item.ManufacturerId,
+                Manufacturers = new SelectList(_context.Manufacturer, "Id", "Name", item.ManufacturerId),
+                Caliber = item.Caliber.Id,
+                Calibers = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId),
+                Category = item.Category.Id,
+                Categories = new SelectList(_context.Category, "Id", "Name", item.CategoryId),
+                FiringActions = new SelectList(_context.FiringAction, "Id", "Name", item.FiringActionId),
+                Platforms = new SelectList(_context.Platform, "Id", "Name", item.PlatformId),
+                Retailers = new SelectList(_context.Retailer, "Id", "Name", item.RetailerId),
+                Locations = new SelectList(_context.Location, "Id", "Name", item.LocationId)
             };
 
-            editItem.SelectedManufacturer = item.Manufacturer;
-            editItem.SelectedCaliber = item.Caliber;
-            editItem.SelectedCategory = item.Category;
-            editItem.SelectedFiringAction = item.FiringAction;
-            editItem.SelectedPlatform = item.Platform;
-            editItem.SelectedRetailer = item.Retailer;
-            editItem.SelectedLocation = item.Location;
+            //editItem.SelectedManufacturer = item.Manufacturer;
+            //editItem.SelectedCaliber = item.Caliber;
+            //editItem.SelectedCategory = item.Category;
+            //editItem.SelectedFiringAction = item.FiringAction;
+            //editItem.SelectedPlatform = item.Platform;
+            //editItem.SelectedRetailer = item.Retailer;
+            //editItem.SelectedLocation = item.Location;
 
             //var caliberList = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId);
             //ViewData["CaliberId"] = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId);
@@ -213,17 +230,40 @@ namespace InventoryCoreVisualStudio.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ManufacturerId,Model,PartNumber,CaliberId,CategoryId,FiringActionId,PlatformId,Color,PurchaseDate,PurchasePrice,PurchaseFrom,RetailerId,ListPrice,LocationId,SerialNumber,Weight,WeightUnitOfMeasure,SoldDate,SoldTo,SoldPrice")] Item item)
+        public async Task<IActionResult> Edit(int id, ItemEditViewModel viewModel)
         {
-            if (id != item.Id)
+            if (id != viewModel.Id)
             {
                 return NotFound();
             }
+
+            var item = _context.Items.Find(id);
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    item.ManufacturerId = viewModel.Manufacturer;
+                    item.Model = viewModel.Model;
+                    item.PartNumber = viewModel.PartNumber;
+                    item.CaliberId = viewModel.Caliber;
+                    item.CategoryId = viewModel.Category;
+                    item.FiringActionId = viewModel.FiringAction;
+                    item.PlatformId = viewModel.Platform;
+                    item.Color = viewModel.Color;
+                    item.PurchaseDate = viewModel.PurchaseDate;
+                    item.PurchasePrice = viewModel.PurchasePrice;
+                    item.PurchaseFrom = viewModel.PurchaseFrom;
+                    item.RetailerId = viewModel.Retailer;
+                    item.ListPrice = viewModel.ListPrice;
+                    item.LocationId = viewModel.Location;
+                    item.SerialNumber = viewModel.SerialNumber;
+                    item.Weight = viewModel.Weight;
+                    item.WeightUnitOfMeasure = viewModel.WeightUnitOfMeasure;
+                    item.SoldDate = viewModel.SoldDate;
+                    item.SoldTo = viewModel.SoldTo;
+                    item.SoldPrice = viewModel.SoldPrice;                    
+
                     _context.Update(item);
                     await _context.SaveChangesAsync();
                 }
@@ -240,14 +280,14 @@ namespace InventoryCoreVisualStudio.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CaliberId"] = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId);
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", item.CategoryId);
-            ViewData["LocationId"] = new SelectList(_context.Location, "Id", "Name", item.LocationId);
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturer, "Id", "Name", item.ManufacturerId);
-            ViewData["PlatformId"] = new SelectList(_context.Platform, "Id", "Name", item.PlatformId);
-            ViewData["RetailerId"] = new SelectList(_context.Retailer, "Id", "Name", item.RetailerId);
-            ViewData["FiringActionId"] = new SelectList(_context.FiringAction, "Id", "Name", item.FiringActionId);
-            return View(item);
+            //ViewData["CaliberId"] = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId);
+            //ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", item.CategoryId);
+            //ViewData["LocationId"] = new SelectList(_context.Location, "Id", "Name", item.LocationId);
+            //ViewData["ManufacturerId"] = new SelectList(_context.Manufacturer, "Id", "Name", item.ManufacturerId);
+            //ViewData["PlatformId"] = new SelectList(_context.Platform, "Id", "Name", item.PlatformId);
+            //ViewData["RetailerId"] = new SelectList(_context.Retailer, "Id", "Name", item.RetailerId);
+            //ViewData["FiringActionId"] = new SelectList(_context.FiringAction, "Id", "Name", item.FiringActionId);
+            return View(viewModel);
         }
 
         // GET: Items/Delete/5
