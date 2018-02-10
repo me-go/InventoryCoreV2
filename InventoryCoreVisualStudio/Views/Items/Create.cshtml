@@ -1,4 +1,4 @@
-﻿@model InventoryCoreVisualStudio.Models.Item
+﻿@model InventoryCoreVisualStudio.ViewModels.ItemEditViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -18,9 +18,9 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ManufacturerId" class="control-label"></label>
-                <select asp-for="ManufacturerId" class ="form-control" asp-items="ViewBag.ManufacturerId">
-                    <option>Please select one</option>
+                <label asp-for="Manufacturer" class="control-label"></label>
+                <select asp-for="Manufacturer" class ="form-control" asp-items="@Model.Manufacturers">
+                    <option>-- select one --</option>
                 </select>
             </div>
             <div class="form-group">
@@ -34,26 +34,28 @@
                 <span asp-validation-for="PartNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CaliberId" class="control-label"></label>
-                <select asp-for="CaliberId" class ="form-control" asp-items="ViewBag.CaliberId">
-                    <option>Please select one</option>
+                <label asp-for="Caliber" class="control-label"></label>
+                <select asp-for="Caliber" class ="form-control" asp-items="@Model.Calibers">
+                    <option>-- select one --</option>
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId">
-                    <option>Please select one</option>
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="Category" class ="form-control" asp-items="@Model.Categories">
+                    <option>-- select one --</option>
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="FiringActionId" class="control-label"></label>
-                <input asp-for="FiringActionId" class="form-control" />
-                <span asp-validation-for="FiringActionId" class="text-danger"></span>
+                <label asp-for="FiringAction" class="control-label"></label>
+                <select asp-for="FiringAction" class="form-control" asp-items="@Model.FiringActions">
+                    <option>-- select one --</option>
+                </select>
+                <span asp-validation-for="FiringAction" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PlatformId" class="control-label"></label>
-                <select asp-for="PlatformId" class ="form-control" asp-items="ViewBag.PlatformId">
-                    <option>Please select one</option>
+                <label asp-for="Platform" class="control-label"></label>
+                <select asp-for="Platform" class ="form-control" asp-items="@Model.Platforms">
+                    <option>-- select one --</option>
                 </select>
             </div>
             <div class="form-group">
@@ -77,9 +79,9 @@
                 <span asp-validation-for="PurchaseFrom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RetailerId" class="control-label"></label>
-                <select asp-for="RetailerId" class ="form-control" asp-items="ViewBag.RetailerId">
-                    <option>Please select one</option>
+                <label asp-for="Retailer" class="control-label"></label>
+                <select asp-for="Retailer" class ="form-control" asp-items="@Model.Retailers">
+                    <option>-- select one --</option>
                 </select>
             </div>
             <div class="form-group">
@@ -88,9 +90,9 @@
                 <span asp-validation-for="ListPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LocationId" class="control-label"></label>
-                <select asp-for="LocationId" class ="form-control" asp-items="ViewBag.LocationId">
-                    <option>Please select one</option>
+                <label asp-for="Location" class="control-label"></label>
+                <select asp-for="Location" class ="form-control" asp-items="@Model.Locations">
+                    <option>-- select one --</option>
                 </select>
             </div>
             <div class="form-group">
