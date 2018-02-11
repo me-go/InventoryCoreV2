@@ -95,7 +95,7 @@ namespace InventoryCoreVisualStudio.Controllers
                 .Include(i => i.Platform)
                 .Include(i => i.Retailer)
                 .AsNoTracking()
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (item == null)
             {
                 return NotFound();
@@ -310,7 +310,7 @@ namespace InventoryCoreVisualStudio.Controllers
                 .Include(i => i.Retailer)
                 .Include(i => i.FiringAction)
                 .AsNoTracking()
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (item == null)
             {
                 return NotFound();
@@ -331,7 +331,7 @@ namespace InventoryCoreVisualStudio.Controllers
         {
             var item = await _context.Items
                 .AsNoTracking()
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if(item == null)
             {

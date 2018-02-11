@@ -34,7 +34,7 @@ namespace InventoryCoreVisualStudio.Controllers
             }
 
             var manufacturer = await _context.Manufacturer
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (manufacturer == null)
             {
                 return NotFound();
@@ -73,7 +73,7 @@ namespace InventoryCoreVisualStudio.Controllers
                 return NotFound();
             }
 
-            var manufacturer = await _context.Manufacturer.SingleOrDefaultAsync(m => m.Id == id);
+            var manufacturer = await _context.Manufacturer.FirstOrDefaultAsync(m => m.Id == id);
             if (manufacturer == null)
             {
                 return NotFound();
@@ -125,7 +125,7 @@ namespace InventoryCoreVisualStudio.Controllers
             }
 
             var manufacturer = await _context.Manufacturer
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (manufacturer == null)
             {
                 return NotFound();
@@ -139,7 +139,7 @@ namespace InventoryCoreVisualStudio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var manufacturer = await _context.Manufacturer.SingleOrDefaultAsync(m => m.Id == id);
+            var manufacturer = await _context.Manufacturer.FirstOrDefaultAsync(m => m.Id == id);
             _context.Manufacturer.Remove(manufacturer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

@@ -46,7 +46,7 @@ namespace InventoryCoreVisualStudio.Controllers
             //}
 
             //var caliber = await _context.Caliber
-            //    .SingleOrDefaultAsync(m => m.Id == id);
+            //    .FirstOrDefaultAsync(m => m.Id == id);
             //if (caliber == null)
             //{
             //    return NotFound();
@@ -194,7 +194,7 @@ namespace InventoryCoreVisualStudio.Controllers
 
             var caliber = _caliberRepository.GetByIdNotracking(id);
             //var caliber = await _context.Caliber
-              //  .SingleOrDefaultAsync(m => m.Id == id);
+              //  .FirstOrDefaultAsync(m => m.Id == id);
             if (caliber == null)
             {
                 return NotFound();
@@ -215,7 +215,7 @@ namespace InventoryCoreVisualStudio.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var caliber = _caliberRepository.GetByIdNotracking(id);
-            //var caliber = await _context.Caliber.SingleOrDefaultAsync(m => m.Id == id);
+            //var caliber = await _context.Caliber.FirstOrDefaultAsync(m => m.Id == id);
             //_context.Caliber.Remove(caliber);
             if(caliber == null)
             {

@@ -36,7 +36,7 @@ namespace InventoryCoreVisualStudio.Controllers
 
             var category = await _context.Category
                 .Include(c => c.Parent)
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -77,7 +77,7 @@ namespace InventoryCoreVisualStudio.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category.SingleOrDefaultAsync(m => m.Id == id);
+            var category = await _context.Category.FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -132,7 +132,7 @@ namespace InventoryCoreVisualStudio.Controllers
 
             var category = await _context.Category
                 .Include(c => c.Parent)
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -146,7 +146,7 @@ namespace InventoryCoreVisualStudio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Category.SingleOrDefaultAsync(m => m.Id == id);
+            var category = await _context.Category.FirstOrDefaultAsync(m => m.Id == id);
             _context.Category.Remove(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
