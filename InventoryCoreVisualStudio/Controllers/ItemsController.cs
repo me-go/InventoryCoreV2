@@ -165,13 +165,13 @@ namespace InventoryCoreVisualStudio.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["CaliberId"] = new SelectList(_context.Caliber, "Id", "Name", item.CaliberId);
-            //ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", item.CategoryId);
-            //ViewData["LocationId"] = new SelectList(_context.Location, "Id", "Name", item.LocationId);
-            //ViewData["ManufacturerId"] = new SelectList(_context.Manufacturer, "Id", "Name", item.ManufacturerId);
-            //ViewData["PlatformId"] = new SelectList(_context.Platform, "Id", "Name", item.PlatformId);
-            //ViewData["RetailerId"] = new SelectList(_context.Retailer, "Id", "Name", item.RetailerId);
-            //ViewData["FiringActionId"] = new SelectList(_context.FiringAction, "Id", "Name", item.FiringActionId);
+            viewModel.Calibers = new SelectList(_context.Caliber, "Id", "Name", viewModel.Caliber);
+            viewModel.Categories = new SelectList(_context.Category, "Id", "Name", viewModel.Category);
+            viewModel.Locations = new SelectList(_context.Location, "Id", "Name", viewModel.Location);
+            viewModel.Manufacturers = new SelectList(_context.Manufacturer, "Id", "Name", viewModel.Manufacturer);
+            viewModel.Platforms = new SelectList(_context.Platform, "Id", "Name", viewModel.Platform);
+            viewModel.Retailers = new SelectList(_context.Retailer, "Id", "Name", viewModel.Retailer);
+            viewModel.FiringActions = new SelectList(_context.FiringAction, "Id", "Name", viewModel.FiringAction);
             return View(viewModel);
         }
 

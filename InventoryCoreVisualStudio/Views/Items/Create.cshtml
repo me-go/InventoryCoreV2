@@ -12,16 +12,17 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" disabled />
                 <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Manufacturer" class="control-label"></label>
                 <select asp-for="Manufacturer" class ="form-control" asp-items="@Model.Manufacturers">
                     <option>-- select one --</option>
                 </select>
+                <span asp-validation-for="Manufacturer" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Model" class="control-label"></label>
@@ -38,12 +39,14 @@
                 <select asp-for="Caliber" class ="form-control" asp-items="@Model.Calibers">
                     <option>-- select one --</option>
                 </select>
+                <span asp-validation-for="Caliber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
                 <select asp-for="Category" class ="form-control" asp-items="@Model.Categories">
                     <option>-- select one --</option>
                 </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FiringAction" class="control-label"></label>
@@ -57,6 +60,7 @@
                 <select asp-for="Platform" class ="form-control" asp-items="@Model.Platforms">
                     <option>-- select one --</option>
                 </select>
+                <span asp-validation-for="Platform" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Color" class="control-label"></label>
@@ -83,6 +87,7 @@
                 <select asp-for="Retailer" class ="form-control" asp-items="@Model.Retailers">
                     <option>-- select one --</option>
                 </select>
+                <span asp-validation-for="Retailer" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ListPrice" class="control-label"></label>
@@ -94,6 +99,7 @@
                 <select asp-for="Location" class ="form-control" asp-items="@Model.Locations">
                     <option>-- select one --</option>
                 </select>
+                <span asp-validation-for="Location" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SerialNumber" class="control-label"></label>
