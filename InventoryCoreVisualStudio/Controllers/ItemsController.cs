@@ -194,7 +194,7 @@ namespace InventoryCoreVisualStudio.Controllers
                 .Include(i => i.Retailer)
                 .Include(i => i.FiringAction)
                 .AsNoTracking()
-                .SingleOrDefault(m => m.Id == id);
+                .FirstOrDefault(m => m.Id == id);
 
             if (item == null)
             {

@@ -21,3 +21,9 @@ script-migration -context InventoryContext
 
 update-database -context InventoryContext -verbose
 dotnet ef database update
+
+
+EF Hierarchy for categories
+
+https://forums.asp.net/t/2052282.aspx?how+to+select+parent+and+children+in+one+select+using+entity+framework+in+a+self+related+table
+https://www.mikesdotnetting.com/article/255/entity-framework-recipe-hierarchical-data-management
