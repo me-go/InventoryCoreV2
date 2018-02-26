@@ -5,10 +5,14 @@ namespace InventoryCoreVisualStudio.Models
     public class Caliber
     {
         public int Id { get; set; }
-        [RegularExpression(@"^[0-9A-Za-z ]+$"), Required, StringLength(30)]
+
         public string Name { get; set; }
-        [DisplayFormat(DataFormatString ="{0:0.000}")]
+
+        [Display(Name = "Decimal Size")]
+        [DisplayFormat(DataFormatString ="{0:0.0000}")]
         public decimal DecimalSize { get; set; }
+
+        [Display(Name = "Metric Size")]
         public string MetricSize { get; set; }
     }
 }

@@ -26,8 +26,24 @@ namespace InventoryCoreVisualStudio.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Part>().ToTable("Part");
+            modelBuilder.Entity<Part>()
+                .Property(p => p.Name).IsRequired();
+            modelBuilder.Entity<Part>()
+                .Property(p => p.Name).HasMaxLength(30);
+
             modelBuilder.Entity<Item>().ToTable("Item");
-            modelBuilder.Entity<Caliber>().Property(c => c.DecimalSize).HasColumnType("decimal(4,3)");
+            modelBuilder.Entity<Item>()
+                .Property(i => i.Model).IsRequired();
+
+
+            modelBuilder.Entity<Caliber>()                
+                .Property(c => c.DecimalSize).HasColumnType("decimal(4,3)");
+            modelBuilder.Entity<Caliber>()
+                .Property(c => c.Name).IsRequired();
+            modelBuilder.Entity<Caliber>()
+                .Property(c => c.Name).HasMaxLength(30);
+               
+
             modelBuilder.Entity<Category>()                
                 .HasMany(c => c.Children)
                 .WithOne(c => c.Parent)
@@ -43,6 +59,8 @@ namespace InventoryCoreVisualStudio.Data
                 .HasOne(f => f.FiringAction)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
+            
+                //DisplayFormat(DataFormatString ="{0:0.000}")
 
         }
 

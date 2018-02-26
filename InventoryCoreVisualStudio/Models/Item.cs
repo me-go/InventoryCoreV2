@@ -17,7 +17,6 @@ namespace InventoryCoreVisualStudio.Models
 
         public int ManufacturerId { get; set; }
 
-        [Required]
         public string Model { get; set; }
 
         public string PartNumber { get; set; }
